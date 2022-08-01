@@ -7,18 +7,50 @@ public class SelectCalendar {
 	public static void main(String[] args) {
 		///年と月を入力し、曜日始まりを選択するとその年月のカレンダーを表示する	
 		
-		//知りたい年(year)と月(month)の入力
-		System.out.print("年を入力してください>");
-		Scanner scanner1 = new Scanner(System.in);
-		int year = scanner1.nextInt();
-		System.out.print("月を入力してください>");
-		Scanner scanner2 = new Scanner(System.in);
-		int month = scanner2.nextInt();
+		//知りたい年(year)の入力
+		Scanner scanner1;
+		int year;
+		while(true) {
+			System.out.print("年を入力してください>");
+			scanner1 = new Scanner(System.in);
+			if(scanner1.hasNextInt()){
+				year = scanner1.nextInt();
+				if(year > 0) {
+					break;
+				}
+	       		}
+			System.out.println("正の整数を入力してください");
+		}
+		
+		//知りたい月(month)の入力
+		Scanner scanner2;
+		int month;
+		while(true) {
+			System.out.print("月を入力してください>");
+			scanner2 = new Scanner(System.in);
+			if(scanner2.hasNextInt()){
+				month = scanner2.nextInt();
+				if(month > 0 && month < 13) {
+					break;
+				}
+	        	}
+			System.out.println("1から12の整数を入力してください");
+		}
 		
 		//カレンダーの曜日が月曜始まりか日曜始まりかの指定(select)の入力
-		System.out.print("曜日始まりの形式を入力してください(0:日、1:月)>");
-		Scanner scanner3 = new Scanner(System.in);
-		int select = scanner3.nextInt();
+		Scanner scanner3;
+		int select;
+		while(true) {
+			System.out.print("曜日始まりを入力してください(0:日、1:月)>");
+			scanner3 = new Scanner(System.in);
+			if(scanner3.hasNextInt()){
+				select = scanner3.nextInt();
+				if(select == 0 || select == 1) {
+					break;
+				}
+	       		}
+			System.out.println("0か1を入力してください");
+		}
 		
 		//入力された年(year)と月(month)の表示
 		System.out.println(year + "年" + month + "月");

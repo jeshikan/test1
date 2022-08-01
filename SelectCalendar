@@ -26,47 +26,48 @@ public class SelectCalendar {
 		
 		//入力された月に応じたその月の日数(maxday)
 		int maxday;
-		if(month == 2) {	//2月の場合、さらにうるう年かどうかで場合分け
-			if(year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+		if(month == 2) {							//2月の場合
+			if(year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {	//さらにうるう年かどうかで場合分け
 				maxday = 29;
 			}else {
 				maxday = 28;
 			}
 		}else if(month == 4 || month == 6 || month == 9 || month == 11) { 	//4,5,9,11月の場合
 			maxday = 30;
-		}else {				//それ以外の月の場合
+		}else {									//それ以外の月の場合
 			maxday = 31;
 		}
 		
 		//入力された年と月の1日の曜日の判定(n)
+		//例えば日曜は0,月曜は1,…,土曜は6となる
 		LocalDate date = LocalDate.of(year, month, 1);
-		int n = date.getDayOfWeek().getValue();			//日曜は0,月曜は1,…,土曜は6となる
+		int n = date.getDayOfWeek().getValue();	
 		
 		//カレンダー初週の一番左がその月の何日か(day)
 		//例えば日曜から始まるカレンダーで、
 		//月曜がその月の1日の場合、日曜は0日と考える
 		int day;
-		if(select == 0) {			//日曜始まりの場合
+		if(select == 0) {						//日曜始まりの場合
 			day = 1 - n % 7;
 		}else {
-			day = 1 - (n - 1) % 7;	//月曜始まりの場合
+			day = 1 - (n - 1) % 7;					//月曜始まりの場合
 		}
 		
 		//カレンダーの1～maxdayの表示
-		a:for(int i = day; ; ) {				//カウンタ変数iの初期値はdayでbreakまで繰り返す
-			for(int j = 0; j < 7; j++) {	//各曜日である7回分繰り返す
-				if(i <= 0) {							//存在しない日の場合(7月0日など)
-					System.out.print("   ");			//半角3文字分の空白を表示
+		a:for(int i = day; ; ) {					//カウンタ変数iの初期値はdayでbreakまで繰り返す
+			for(int j = 0; j < 7; j++) {				//各曜日である7回分繰り返す
+				if(i <= 0) {					//存在しない日の場合(7月0日など)
+					System.out.print("   ");		//半角3文字分の空白を表示
 				}else if(i < 10){				//1～9日の場合
 					System.out.print(" " + i + " ");	//iを半角1文字分の空白で挟んで表示
-				}else if(i < maxday + 1){	//10～maxday日の場合
-					System.out.print(i + " ");			//iに半角１文字分の空白をつけて表示
-				}else {									//maxdayを超えた場合
+				}else if(i < maxday + 1){			//10～maxday日の場合
+					System.out.print(i + " ");		//iに半角１文字分の空白をつけて表示
+				}else {						//maxdayを超えた場合
 					break a;				//繰り返しをおわる
 				}
 				i++;	
 			}
-		System.out.println();				//7回分表示したら改行する
+		System.out.println();						//7回分表示したら改行する
 		}
 	}
 }
